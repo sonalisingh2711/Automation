@@ -2,7 +2,7 @@
 import constantValues from '../../fixtures/constantValues.json'
 import Home from './HomePage'
 const _verificationMessage = 'i+span'
-const _viewCartButton = '//a//*[text()="View Cart"]'
+const _viewCartButton = '//a[@class="added_to_cart_message_button"]//*[text()="View Cart"]'
 const _giftCardAmount = "input.input-text.amount"
 const _addToCart = "button.single_add_to_cart_button"
 const _productImage = "div.woocommerce-product-gallery__image img"
@@ -35,13 +35,11 @@ class ProductDescription {
 
   static checkProductInStock() {
     cy.get(_productInStock).then(($ele) => {
-     // cy.log($ele)
       if (($ele.text().includes("In stock"))) {
-       // cy.log("contains element")
         this.selectFeature()
       }
       else{
-        cy.log("false")
+        return false
       }
     })
   }
@@ -63,7 +61,7 @@ class ProductDescription {
         this.giftCardAmount()
       }
       else{
-        cy.log("false")
+        return false
       }
     })
   }
