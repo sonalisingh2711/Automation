@@ -1,0 +1,7 @@
+{
+    "baseUrl":"https://reqres.in/api",
+    "getuser":"/users/2",
+    "getuser23":"/users/23",
+    "login":"/login"
+    
+}
