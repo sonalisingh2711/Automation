@@ -24,13 +24,24 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
- Cypress.Commands.add('requestWithoutBody',(method,url)=>{
-   cy.request(method,"https://reqres.in/api/users"+url)
-  });
-  
-  Cypress.Commands.add('requestWithBody',(method,url,user)=>{
-    cy.request(method,"https://reqres.in/api"+url,user)
-  })
- 
-  
-  
+Cypress.Commands.add('getRequest', (geturl) => {
+  cy.request({
+    method: "GET",
+    url: geturl,
+    failOnStatusCode: false
+  }).as('getrequest')
+})
+Cypress.Commands.add('checkStatusCodeForGet', (status) => {
+  cy.get('@getrequest').its('status').should('be.eq', status)
+})
+Cypress.Commands.add('postRequest', (posturl, user) => {
+  cy.request({
+    method: "POST",
+    url: posturl,
+    failOnStatusCode: false,
+    body: {user}
+  }).as('postrequest')
+})
+Cypress.Commands.add('checkStatusCodeForPost', (status) => {
+  cy.get('@postrequest').its('status').should('be.eq', status)
+})
