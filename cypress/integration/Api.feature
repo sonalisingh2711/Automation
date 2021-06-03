@@ -1,16 +1,34 @@
 Feature: testing Api functionality
 
     Scenario: get request
-    When I request for List users Endpoint
-    And Check Status code
-    And I check first-name
-    Scenario: post request
-    When I request for create user Endpoint
-    Then check user is created
-    Scenario: check user credentials
-    Given login user
-    Scenario: Update user
-    When I request for list user Endpoint
-    Then check user is updated or not
-    Scenario:delete user
-    When I request for api and delete user
+        Given "GET" request for "/2" Endpoint
+        When check id of body
+        Then "@users" verify status code 200
+
+    Scenario: delete request
+        Given "DELETE" request for "/2" Endpoint
+        Then "@users" verify status code 204
+        Then User must be empty
+
+    Scenario: Post request
+        Given "POST" request for "/users/2" Endpoint and pass data of index 0
+        Then "@body" verify status code 201
+
+    Scenario: Put request
+        Given "PUT" request for "/users/2" Endpoint and pass data of index 1
+
+    Scenario: Post request
+        Given "POST" request for "/login" Endpoint and pass data of index 2
+        Then  check for token generated
+        
+    Scenario: Post request
+        Given "POST" request for "/login" Endpoint and pass data of index 3
+        Then "@body" verify status code 200
+
+
+
+
+
+
+
+

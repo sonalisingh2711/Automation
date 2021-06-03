@@ -24,14 +24,13 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('login', () => {
-    const options = {
-      method: 'POST',
-      url: "/api/login",
-      body: {
-        username:"eve.holt@reqres.in",
-        password: "city",
-      },
-    };
-    cy.request(options);
+ Cypress.Commands.add('requestWithoutBody',(method,url)=>{
+   cy.request(method,"https://reqres.in/api/users"+url)
   });
+  
+  Cypress.Commands.add('requestWithBody',(method,url,user)=>{
+    cy.request(method,"https://reqres.in/api"+url,user)
+  })
+ 
+  
+  
